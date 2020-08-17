@@ -5,9 +5,10 @@ import tweepy
 
 logger = logging.getLogger()
 
-def create_api():
+def CreateApi():
+    print(os.getenv('api_key'))
     auth = tweepy.OAuthHandler(os.getenv('api_key'),os.getenv('secret_api_key'))
-    auth.set_access_token(os.getenv('access_token'),os.getenv('secret_acess_token'))
+    auth.set_access_token(os.getenv('access_token'),os.getenv('secret_access_token'))
 
     api = tweepy.API(auth,wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
@@ -21,3 +22,5 @@ def create_api():
 
     logger.info("API Created")
     return api
+
+CreateApi()
