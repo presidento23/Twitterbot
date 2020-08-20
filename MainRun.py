@@ -46,7 +46,6 @@ class Day_Trade_Listener():
         Highestscore = max(Totalweight)
         Highestscoreid = Totalweight[Highestscore]
         try:
-            print(Highestscoreid)
             self.api.retweet(Highestscoreid)
             logger.info(f"Retweeted {Highestscoreid} witih score of {Highestscore}")
         except Exception as e:
@@ -142,7 +141,14 @@ class Day_Trade_Listener():
 def main():
     api = CreateApi()
     Bot = Day_Trade_Listener(api, who = "WarriorTrading")
-    Bot.MostHighestScoredTweet()
-    Bot.GainAttention()
+
+    while True:
+
+        Bot.MostHighestScoredTweet()
+        time.sleep(1200)
+        Bot.MostHighestScoredTweet()
+        time.sleep(randrange(3200, 7200))
+        Bot.GainAttention()
+
 if __name__ == "__main__":
     main()
