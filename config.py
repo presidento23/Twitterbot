@@ -5,10 +5,10 @@ import tweepy
 
 logger = logging.getLogger()
 
-os.environ['api_key'] = "kW290anYbU4HTGayeoL9jIn5s"
-os.environ['secret_api_key'] = "8dDchNDR3egYHsjrk6V9FKhwhH3fIDkzp0xkE3tvobOYChAno9"
-os.environ['access_token'] = "1295144114812596225-WXm9wycAC2KQoHWdmUxy30wUREFU9V"
-os.environ['secret_access_token'] = "bCERJHG5f0L8ddaFIzX6TE4NO1yZAxYlU1HQ8aRkySjo6"
+os.environ['api_key'] = ""
+os.environ['secret_api_key'] = ""
+os.environ['access_token'] = ""
+os.environ['secret_access_token'] = ""
 
 def CreateApi():
     auth = tweepy.OAuthHandler(os.getenv('api_key'),os.getenv('secret_api_key'))
