@@ -5,8 +5,12 @@ import tweepy
 
 logger = logging.getLogger()
 
+os.environ['api_key'] = "kW290anYbU4HTGayeoL9jIn5s"
+os.environ['secret_api_key'] = "8dDchNDR3egYHsjrk6V9FKhwhH3fIDkzp0xkE3tvobOYChAno9"
+os.environ['access_token'] = "1295144114812596225-WXm9wycAC2KQoHWdmUxy30wUREFU9V"
+os.environ['secret_access_token'] = "bCERJHG5f0L8ddaFIzX6TE4NO1yZAxYlU1HQ8aRkySjo6"
+
 def CreateApi():
-    print(os.getenv('api_key'))
     auth = tweepy.OAuthHandler(os.getenv('api_key'),os.getenv('secret_api_key'))
     auth.set_access_token(os.getenv('access_token'),os.getenv('secret_access_token'))
 
@@ -14,13 +18,11 @@ def CreateApi():
 
     try:
         api.verify_credentials()
-        print("Authenticated Ok")
 
     except Exception as e:
-        logger.error("Error creating API", exc_info = True)
+        logger.error(f"Error creating API \n {e}",exc_info = True)
         raise e
 
     logger.info("API Created")
     return api
 
-CreateApi()
