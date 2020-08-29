@@ -14,7 +14,11 @@ class Day_Trade_Listener():
         self.me = api.me()
         self.who = who
 
+    def WhoSetter(self, b):
+        self.who = b
 
+    def WhoGetter(self):
+        return self.who
     def MostHighestScoredTweet(self):
         Totalweight = {}
 
@@ -38,7 +42,7 @@ class Day_Trade_Listener():
                     self.api.retweet(tweet.id)
                     logger.info(f"Retweeted {tweet.id} witih score of {Temptotal}")
                 except Exception as e:
-                    logger.error(f"Error retweeting {tweet.id}.")
+                    logger.error(f"Error retweeting {tweet.id}.{e}")
                 return
             else:
                 Totalweight[Temptotal] = tweet.id
