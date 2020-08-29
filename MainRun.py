@@ -21,16 +21,22 @@ class Day_Trade_Listener():
         return self.who
     def MostHighestScoredTweet(self):
         Totalweight = {}
+        Pastattentiongiventext = open("Attention.txt",'a+')
+        try:
+            Attentionids = Pastattentiongiventext.read().split()
+
+        except:
+            logger.error("Pastattentiongiven is empty")
 
 
         try:
-            Last30tweets = (self.api.user_timeline(self.who, count=30))
+            Last40tweets = (self.api.user_timeline(self.who, count=40))
             logger.info("30 tweets found")
         except Exception as e:
-            logger.error("Error finding 30 tweets", exc_info=True)
+            logger.error(f"Error finding 30 tweets \n {e}" , exc_info=True)
             return
 
-        for tweet in Last30tweets:
+        for tweet in Last40tweets:
             Tweetretweets = tweet.retweet_count
             Tweetfavorites = tweet.favorite_count
             Weightedretweetsscore = (Tweetretweets - 0) / (50)
@@ -47,13 +53,13 @@ class Day_Trade_Listener():
             else:
                 Totalweight[Temptotal] = tweet.id
 
-        Highestscore = max(Totalweight)
-        Highestscoreid = Totalweight[Highestscore]
-        try:
-            self.api.retweet(Highestscoreid)
-            logger.info(f"Retweeted {Highestscoreid} witih score of {Highestscore}")
-        except Exception as e:
-            logger.error(f"Error retweeting {tweet.id}.")
+        for tweet in sorted(Totalweight, key=Totalweight.get, reverse=True):
+            try:
+                self.api.retweet(Totalweight[tweet])
+                logger.info(f"Retweeted {tweet} with score of {Totalweight[tweet]}")
+                return
+            except Exception as e:
+                logger.error(f"Error retweeting {tweet}. \n {e}")
         return
 
     def GainAttention(self):
