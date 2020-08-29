@@ -31,9 +31,9 @@ class Day_Trade_Listener():
 
         try:
             Last40tweets = (self.api.user_timeline(self.who, count=40))
-            logger.info("30 tweets found")
+            logger.info("40 tweets found")
         except Exception as e:
-            logger.error(f"Error finding 30 tweets \n {e}" , exc_info=True)
+            logger.error(f"Error finding 40 tweets \n {e}" , exc_info=True)
             return
 
         for tweet in Last40tweets:
@@ -53,10 +53,10 @@ class Day_Trade_Listener():
             else:
                 Totalweight[Temptotal] = tweet.id
 
-        for tweet in sorted(Totalweight, key=Totalweight.get, reverse=True):
+        for tweet in sorted(Totalweight, key=Totalweight.get):
             try:
                 self.api.retweet(Totalweight[tweet])
-                logger.info(f"Retweeted {tweet} with score of {Totalweight[tweet]}")
+                logger.info(f"Retweeted {Totalweight[tweet]} with score of {tweet}")
                 return
             except Exception as e:
                 logger.error(f"Error retweeting {tweet}. \n {e}")
